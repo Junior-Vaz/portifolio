@@ -184,11 +184,23 @@ http://www.templatemo.com/tm-498-stimulus
 
                <div class="bg-dark col-md-3 col-sm-6">
                     <div class="wow fadeInUp color-white service-thumb" data-wow-delay="1.6s">
-                         <i class="fa fa-table"></i>
-                              <h3>Mobile App</h3>
-                              <p class="color-white">Mauris convallis eros massa, vitae euismod arcu tempus ut. Quisque viverra iaculis.</p>
+                        <i class="fa fa-table"></i>
+                        <h3>Mobile App</h3>
+                        <p class="color-white">Mauris convallis eros massa, vitae euismod arcu tempus ut. Quisque viverra iaculis.</p>
+                
+                        <!-- Menu lateral (hidden) -->
+                        <div class="side-menu">
+                            <div class="menu-content">
+                                <ul>
+                                    <li><a href="#">Projeto 1</a></li>
+                                    <li><a href="#">Projeto 2</a></li>
+                                    <li><a href="#">Projeto 3</a></li>
+                                    <li><a href="#">Projeto 4</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-               </div>
+                </div>
 
                <div class="bg-white col-md-3 col-sm-6">
                     <div class="wow fadeInUp service-thumb" data-wow-delay="1.8s">
@@ -394,6 +406,51 @@ http://www.templatemo.com/tm-498-stimulus
 		</div>
 	</div>
 </footer>
+
+<!-- Estilos CSS -->
+<style>
+     .bg-dark {
+         position: relative; /* Define a posição relativa para o contêiner */
+         overflow: hidden; /* Garante que o menu não ultrapasse os limites */
+     }
+ 
+     .side-menu {
+         position: absolute;
+         top: -100%; /* Inicialmente fora da tela, acima */
+         left: 0;
+         width: 100%; /* O menu ocupa toda a largura do contêiner */
+         height: 100%; /* O menu ocupa toda a altura do contêiner */
+         background-color: #141414;
+         transition: top 0.3s ease;
+     }
+ 
+     .side-menu .menu-content {
+         padding-top: 50px; /* Espaço para o conteúdo do menu */
+     }
+ 
+     .side-menu ul {
+         list-style-type: none;
+         padding: 0;
+     }
+ 
+     .side-menu ul li a {
+         color: white;
+         text-decoration: none;
+         display: block;
+         padding: 15px;
+         border-bottom: 1px solid #1b1b1b;
+         transition: background-color 0.3s;
+     }
+ 
+     .side-menu ul li a:hover {
+         background-color: #313131;
+     }
+ 
+     /* Mostra o menu lateral quando o mouse está sobre o contêiner */
+     .bg-dark:hover .side-menu {
+         top: 0; /* Menu desliza para baixo e cobre o contêiner */
+     }
+ </style>
 
 <!-- SCRIPTS -->
 
