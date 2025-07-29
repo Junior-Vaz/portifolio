@@ -26,16 +26,79 @@
                 <span class="brand-text">Junior Vaz</span>
             </div>
             
+            <!-- Barra de ferramentas -->
+            <div class="nav-toolbar">
+                <button class="toolbar-btn" data-tooltip="Navegar">
+                    <i class="fas fa-compass"></i>
+                </button>
+                <button class="toolbar-btn" data-tooltip="Buscar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="toolbar-btn" data-tooltip="Atualizar">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="nav-separator"></div>
+                <button class="toolbar-btn" data-tooltip="Configurações">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+            
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Início</a></li>
-                <li><a href="#services" class="nav-link">Serviços</a></li>
-                <li><a href="#about" class="nav-link">Sobre</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projetos</a></li>
-                <li><a href="#contact" class="nav-link">Contato</a></li>
+                <li><a href="#home" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>index.html</span>
+                    <button class="close-tab" aria-label="Fechar aba"></button>
+                </a></li>
+                <li><a href="#services" class="nav-link">
+                    <i class="fas fa-cogs"></i>
+                    <span>services.js</span>
+                    <button class="close-tab" aria-label="Fechar aba"></button>
+                </a></li>
+                <li><a href="#about" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>about.tsx</span>
+                    <button class="close-tab" aria-label="Fechar aba"></button>
+                </a></li>
+                <li><a href="#skills" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    <span>skills.css</span>
+                    <button class="close-tab" aria-label="Fechar aba"></button>
+                </a></li>
+                <li><a href="#projects" class="nav-link">
+                    <i class="fas fa-folder"></i>
+                    <span>projects.js</span>
+                    <button class="close-tab" aria-label="Fechar aba"></button>
+                </a></li>
+                <li><a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact.js</span>
+                    <button class="close-tab" aria-label="Fechar aba"></button>
+                </a></li>
             </ul>
             
             <div class="nav-actions">
+                <!-- Status indicators -->
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span class="status-text">Online</span>
+                </div>
+                
+                <div class="nav-separator"></div>
+                
+                <!-- Contador de linhas -->
+                <div class="status-indicator">
+                    <i class="fas fa-code" style="font-size: 10px; opacity: 0.7;"></i>
+                    <span class="status-text">1,247 linhas</span>
+                </div>
+                
+                <div class="nav-separator"></div>
+                
+                <!-- Indicador de linguagem -->
+                <div class="status-indicator">
+                    <i class="fab fa-js-square" style="font-size: 10px; color: #f7df1e;"></i>
+                    <span class="status-text">JavaScript</span>
+                </div>
+                
                 <button class="nav-toggle" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -50,6 +113,15 @@
         <div class="hero-background">
             <div class="hero-grid"></div>
             <div class="hero-gradient"></div>
+            <div class="file-tab"></div>
+            <div class="line-numbers"></div>
+            <div class="editor-scrollbar"></div>
+            <div class="code-cursor"></div>
+            <div class="syntax-elements"></div>
+            <div class="code-line-1">// Desenvolvedor Full Stack</div>
+            <div class="code-line-2">const passion = "coding";</div>
+            <div class="code-line-3">export default Portfolio;</div>
+            <div class="typing-effect">console.log("Hello, World!");</div>
         </div>
         
         <div class="container">
@@ -1103,48 +1175,6 @@
                 </div>
             </div>
 
-            <!-- Experience Timeline -->
-            <div class="experience-timeline-section">
-                <h3 class="subsection-title">
-                    <i class="fas fa-history"></i>
-                    Timeline de Experiência
-                </h3>
-                <div class="timeline-container">
-                                         <div class="timeline-item" data-year="2022">
-                         <div class="timeline-dot"></div>
-                         <div class="timeline-content">
-                             <div class="timeline-year">2022</div>
-                             <div class="timeline-title">Iniciando na Programação</div>
-                             <div class="timeline-tech">HTML, CSS, JavaScript, Photoshop</div>
-                         </div>
-                     </div>
-                     <div class="timeline-item" data-year="2023">
-                         <div class="timeline-dot"></div>
-                         <div class="timeline-content">
-                             <div class="timeline-year">2023</div>
-                             <div class="timeline-title">Frontend & Backend</div>
-                             <div class="timeline-tech">Vue.js, Node.js, Express, MySQL, Tailwind CSS</div>
-                         </div>
-                     </div>
-                     <div class="timeline-item" data-year="2024">
-                         <div class="timeline-dot"></div>
-                         <div class="timeline-content">
-                             <div class="timeline-year">2024</div>
-                             <div class="timeline-title">Full Stack & Mobile</div>
-                             <div class="timeline-tech">React Native, Expo, Sequelize, API REST</div>
-                         </div>
-                     </div>
-                     <div class="timeline-item" data-year="2025">
-                         <div class="timeline-dot active"></div>
-                         <div class="timeline-content">
-                             <div class="timeline-year">2025</div>
-                             <div class="timeline-title">Especialização & Projetos</div>
-                             <div class="timeline-tech">WordPress, CorelDraw, Adobe Creative Suite</div>
-                         </div>
-                     </div>
-                </div>
-            </div>
-
             <!-- Certifications -->
             <div class="certifications-section">
                 <h3 class="subsection-title">
@@ -1201,111 +1231,6 @@
                          </div>
                      </div>
                  </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Depoimentos</span>
-                <h2 class="section-title">O que meus clientes dizem</h2>
-                <p class="section-description">
-                    Resultados reais e feedback de clientes satisfeitos com meus serviços.
-                </p>
-            </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "O Junior entregou exatamente o que prometeu. O site ficou incrível e 
-                            já estamos vendo resultados nas vendas. Super recomendo!"
-                        </p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Maria Silva</h4>
-                            <span>Empresária - Canaã Telecom</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "Profissionalismo e qualidade técnica excepcionais. O projeto foi 
-                            entregue no prazo e com funcionalidades além do esperado."
-                        </p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>João Santos</h4>
-                            <span>CEO - TechStart</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "Comunicação clara, prazos respeitados e resultado final perfeito. 
-                            Já estou planejando o próximo projeto com ele!"
-                        </p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Ana Costa</h4>
-                            <span>Designer Freelancer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonials-stats">
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Clientes Satisfeitos</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">15+</span>
-                    <span class="stat-label">Projetos Entregues</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">5.0</span>
-                    <span class="stat-label">Avaliação Média</span>
-                </div>
             </div>
         </div>
     </section>

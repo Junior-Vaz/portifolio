@@ -10,6 +10,9 @@ class Navigation {
         this.navMenu = $('.nav-menu');
         this.navLinks = $$('.nav-link');
         this.header = $('.header');
+        this.closeButtons = $$('.close-tab');
+        this.toolbarButtons = $$('.toolbar-btn');
+        this.statusIndicators = $$('.status-indicator');
         
         this.init();
     }
@@ -18,6 +21,9 @@ class Navigation {
         this.bindEvents();
         this.setupSmoothScrolling();
         this.setupScrollSpy();
+        this.setupTabInteractions();
+        this.setupToolbarInteractions();
+        this.setupStatusUpdates();
     }
     
     bindEvents() {
@@ -26,7 +32,14 @@ class Navigation {
         
         // Close mobile menu when clicking on links
         this.navLinks.forEach(link => {
-            link.addEventListener('click', () => this.closeMobileMenu());
+            link.addEventListener('click', (e) => {
+                // Don't close if clicking on close button
+                if (e.target.classList.contains('close-tab')) {
+                    e.preventDefault();
+                    return;
+                }
+                this.closeMobileMenu();
+            });
         });
         
         // Header background on scroll
@@ -38,6 +51,257 @@ class Navigation {
                 this.closeMobileMenu();
             }
         });
+    }
+    
+    setupToolbarInteractions() {
+        this.toolbarButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleToolbarAction(button);
+            });
+            
+            // Add ripple effect
+            button.addEventListener('mousedown', (e) => {
+                this.createRippleEffect(button, e);
+            });
+        });
+    }
+    
+    handleToolbarAction(button) {
+        const tooltip = button.getAttribute('data-tooltip');
+        
+        switch(tooltip) {
+            case 'Navegar':
+                this.showNavigationMenu();
+                break;
+            case 'Buscar':
+                this.showSearchBar();
+                break;
+            case 'Atualizar':
+                this.refreshPage();
+                break;
+            case 'Configurações':
+                this.showSettings();
+                break;
+        }
+        
+        // Add active state temporarily
+        button.classList.add('active');
+        setTimeout(() => {
+            button.classList.remove('active');
+        }, 200);
+    }
+    
+    showNavigationMenu() {
+        // Simular menu de navegação
+        this.showNotification('Menu de navegação aberto', 'info');
+    }
+    
+    showSearchBar() {
+        // Simular barra de busca
+        this.showNotification('Barra de busca ativada', 'info');
+    }
+    
+    refreshPage() {
+        // Simular refresh com animação
+        this.showNotification('Página atualizada', 'success');
+        this.animateRefresh();
+    }
+    
+    showSettings() {
+        // Simular configurações
+        this.showNotification('Configurações abertas', 'info');
+    }
+    
+    animateRefresh() {
+        const refreshBtn = $('.toolbar-btn[data-tooltip="Atualizar"] i');
+        if (refreshBtn) {
+            refreshBtn.style.transform = 'rotate(360deg)';
+            refreshBtn.style.transition = 'transform 0.5s ease';
+            setTimeout(() => {
+                refreshBtn.style.transform = 'rotate(0deg)';
+            }, 500);
+        }
+    }
+    
+    createRippleEffect(button, event) {
+        const ripple = document.createElement('span');
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        button.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    }
+    
+    setupStatusUpdates() {
+        // Atualizar status dinamicamente
+        this.updateLineCount();
+        this.updateLanguageIndicator();
+        
+        // Atualizar a cada 5 segundos
+        setInterval(() => {
+            this.updateStatus();
+        }, 5000);
+    }
+    
+    updateLineCount() {
+        const lineCountElement = $('.status-text');
+        if (lineCountElement && lineCountElement.textContent.includes('linhas')) {
+            const currentCount = Math.floor(Math.random() * 500) + 1000;
+            lineCountElement.textContent = `${currentCount.toLocaleString()} linhas`;
+        }
+    }
+    
+    updateLanguageIndicator() {
+        const languages = ['JavaScript', 'TypeScript', 'Vue.js', 'React', 'Node.js'];
+        const languageElement = $('.status-text:last-child');
+        if (languageElement) {
+            const randomLang = languages[Math.floor(Math.random() * languages.length)];
+            languageElement.textContent = randomLang;
+        }
+    }
+    
+    updateStatus() {
+        const statusDot = $('.status-dot');
+        const statusText = $('.status-text');
+        
+        if (statusDot && statusText) {
+            // Simular mudança de status
+            const statuses = [
+                { color: '#4fc08d', text: 'Online' },
+                { color: '#ff6b6b', text: 'Ocupado' },
+                { color: '#feca57', text: 'Ausente' }
+            ];
+            
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            statusDot.style.background = randomStatus.color;
+            statusText.textContent = randomStatus.text;
+        }
+    }
+    
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${this.getNotificationIcon(type)}"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animar entrada
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Remover após 3 segundos
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 3000);
+    }
+    
+    getNotificationIcon(type) {
+        const icons = {
+            success: 'check-circle',
+            error: 'exclamation-circle',
+            warning: 'exclamation-triangle',
+            info: 'info-circle'
+        };
+        return icons[type] || 'info-circle';
+    }
+    
+    setupTabInteractions() {
+        // Close tab functionality
+        this.closeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.closeTab(button);
+            });
+        });
+        
+        // Tab hover effects
+        this.navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                this.showCloseButton(link);
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                this.hideCloseButton(link);
+            });
+        });
+        
+        // Prevent close button from triggering navigation
+        this.closeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+    }
+    
+    closeTab(button) {
+        const tab = button.closest('.nav-link');
+        const isActive = tab.classList.contains('active');
+        
+        // Add closing animation
+        tab.style.transform = 'translateX(-100%)';
+        tab.style.opacity = '0';
+        
+        setTimeout(() => {
+            // If it was the active tab, activate the next one
+            if (isActive) {
+                const nextTab = tab.nextElementSibling?.querySelector('.nav-link') || 
+                               tab.previousElementSibling?.querySelector('.nav-link');
+                if (nextTab) {
+                    nextTab.classList.add('active');
+                    this.scrollToSection(nextTab.getAttribute('href'));
+                }
+            }
+            
+            // Remove the tab (in a real app, you'd hide it)
+            tab.style.display = 'none';
+        }, 300);
+    }
+    
+    showCloseButton(tab) {
+        const closeBtn = tab.querySelector('.close-tab');
+        if (closeBtn) {
+            closeBtn.style.opacity = '1';
+        }
+    }
+    
+    hideCloseButton(tab) {
+        const closeBtn = tab.querySelector('.close-tab');
+        if (closeBtn) {
+            closeBtn.style.opacity = '0';
+        }
+    }
+    
+    scrollToSection(sectionId) {
+        const targetSection = $(sectionId);
+        if (targetSection) {
+            const headerHeight = this.header.offsetHeight;
+            const targetPosition = targetSection.offsetTop - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
     }
     
     toggleMobileMenu() {
@@ -53,19 +317,18 @@ class Navigation {
     setupSmoothScrolling() {
         this.navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
+                // Don't handle if clicking on close button
+                if (e.target.classList.contains('close-tab')) {
+                    return;
+                }
+                
                 e.preventDefault();
                 const targetId = link.getAttribute('href');
-                const targetSection = $(targetId);
+                this.scrollToSection(targetId);
                 
-                if (targetSection) {
-                    const headerHeight = this.header.offsetHeight;
-                    const targetPosition = targetSection.offsetTop - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
+                // Update active tab
+                this.navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
             });
         });
     }
@@ -94,19 +357,11 @@ class Navigation {
         const scrolled = window.scrollY > 50;
         
         if (scrolled) {
-            this.header.style.background = 'rgba(15, 20, 25, 0.99)';
-            this.header.style.boxShadow = `
-                0 12px 40px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 255, 255, 0.05)
-            `;
-            this.header.style.transform = 'translateX(-50%) scale(0.98)';
+            this.header.style.background = 'linear-gradient(180deg, #1e1e1e 0%, #252526 100%)';
+            this.header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
         } else {
-            this.header.style.background = 'rgba(15, 20, 25, 0.98)';
-            this.header.style.boxShadow = `
-                0 8px 32px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.03)
-            `;
-            this.header.style.transform = 'translateX(-50%) scale(1)';
+            this.header.style.background = 'linear-gradient(180deg, #1e1e1e 0%, #252526 100%)';
+            this.header.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.3)';
         }
     }
 }
@@ -638,7 +893,6 @@ class EnhancedSkillsSystem {
         this.setupFilters();
         this.setupProgressAnimation();
         this.setupRadarChart();
-        this.setupTimelineAnimation();
         this.setupCertificationsAnimation();
         
         // Inicializar com apenas a categoria frontend visível
@@ -879,35 +1133,6 @@ class EnhancedSkillsSystem {
             const y = centerY + Math.sin(angle) * labelRadius;
             
             ctx.fillText(skill.name, x, y);
-        });
-    }
-    
-    // Timeline Animation
-    setupTimelineAnimation() {
-        const timelineItems = $$('.timeline-item');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInLeft 0.8s ease-out';
-                    
-                    // Animate timeline dot
-                    const dot = entry.target.querySelector('.timeline-dot');
-                    if (dot) {
-                        setTimeout(() => {
-                            dot.style.animation = 'pulse 2s ease-in-out infinite';
-                        }, 500);
-                    }
-                    
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.5
-        });
-        
-        timelineItems.forEach(item => {
-            observer.observe(item);
         });
     }
     
